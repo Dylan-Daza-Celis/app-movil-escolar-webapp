@@ -46,7 +46,6 @@ export class RegistroAlumnosComponent implements OnInit {
       this.editar = true;
       //Asignamos a nuestra variable global el valor del ID que viene por la URL
       this.idUser = this.activatedRoute.snapshot.params['id'];
-      console.log("ID User: ", this.idUser);
       //Al iniciar la vista asignamos los datos del user
       this.alumno = this.datos_user;
     }else{
@@ -112,7 +111,6 @@ export class RegistroAlumnosComponent implements OnInit {
       (response) => {
         // Redirigir o mostrar mensaje de éxito
         alert("Alumno actualizado exitosamente");
-        console.log("Alumno actualizado: ", response);
         this.router.navigate(["alumnos"]);
       },
       (error) => {

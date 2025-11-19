@@ -35,29 +35,29 @@ export class EliminarUserModalComponent implements OnInit {
       // Entonces elimina un administrador
       this.administradoresService.eliminarAdmin(this.data.id).subscribe(
         (response)=>{
-          console.log(response);
+
           this.dialogRef.close({isDelete:true});
         }, (error)=>{
           this.dialogRef.close({isDelete:false});
         }
       );
 
-    }else if(this.rol == "maestro"){
+    }else if(this.rol == "maestros"){
       // Entonces elimina un maestro
       this.maestrosService.eliminarMaestro(this.data.id).subscribe(
         (response)=>{
-          console.log(response);
+
           this.dialogRef.close({isDelete:true});
         }, (error)=>{
           this.dialogRef.close({isDelete:false});
         }
       );
 
-    }if(this.rol == "alumno"){
+    }if(this.rol == "alumnos"){
       // Entonces elimina un alumno
       this.alumnosService.eliminarAlumno(this.data.id).subscribe(
         (response)=>{
-          console.log(response);
+          
           this.dialogRef.close({isDelete:true});
         }, (error)=>{
           this.dialogRef.close({isDelete:false});

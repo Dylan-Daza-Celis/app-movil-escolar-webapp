@@ -129,10 +129,10 @@ export class NavbarUserComponent implements OnInit {
     return this.userRole === 'administrador';
   }
   isTeacher(): boolean {
-    return this.userRole === 'maestro';
+    return this.userRole === 'maestros';
   }
   isStudent(): boolean {
-    return this.userRole === 'alumno';
+    return this.userRole === 'alumnos';
   }
   canSeeAdminItems(): boolean {
     return this.isAdmin();

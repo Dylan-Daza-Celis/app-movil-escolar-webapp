@@ -129,7 +129,7 @@ export class AdministradoresService {
       headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
     } else {
       headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-      console.log("No se encontró el token del usuario");
+      ("No se encontró el token del usuario");
 
     }
     return this.http.get<any>(`${environment.url_api}/lista-admins/`, { headers });
@@ -143,7 +143,7 @@ export class AdministradoresService {
       headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
     } else {
       headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-      console.log("No se encontró el token del usuario");
+      ("No se encontró el token del usuario");
     }
     return this.http.get<any>(`${environment.url_api}/admin/?id=${idAdmin}`, { headers });
   }
@@ -156,7 +156,7 @@ export class AdministradoresService {
       headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
     } else {
       headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-      console.log("No se encontró el token del usuario");
+      ("No se encontró el token del usuario");
     }
     return this.http.put<any>(`${environment.url_api}/admin/`, data, { headers });
   }
@@ -169,7 +169,7 @@ export class AdministradoresService {
       headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
     } else {
       headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-      console.log("No se encontró el token del usuario");
+      ("No se encontró el token del usuario");
     }
     return this.http.delete<any>(`${environment.url_api}/admin/?id=${idAdmin}`, { headers });
   }

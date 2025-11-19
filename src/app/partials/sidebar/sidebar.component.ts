@@ -20,7 +20,6 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit(): void {
     this.userRole = this.facadeService.getUserGroup();
-    console.log('User role in sidebar:', this.userRole);
   }
 
   @HostListener('window:resize')
@@ -42,7 +41,7 @@ export class SidebarComponent implements OnInit {
   logout() {
     this.facadeService.logout().subscribe(
       (response) => {
-        console.log('Logout successful');
+        ('Logout successful');
         this.facadeService.destroyUser();
         this.router.navigate(['/login']);
         this.closeSidebar();
@@ -63,11 +62,11 @@ export class SidebarComponent implements OnInit {
   }
 
   isTeacher(): boolean {
-    return this.userRole === 'maestro';
+    return this.userRole === 'maestros';
   }
 
   isStudent(): boolean {
-    return this.userRole === 'alumno';
+    return this.userRole === 'alumnos';
   }
 
   // Check if user can see admin-only items

@@ -141,7 +141,7 @@ export class AlumnosService {
     } else {
       headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     }
-    return this.http.delete<any>(`${environment.url_api}/alumno/${idAlumno}/`, { headers });
+    return this.http.delete<any>(`${environment.url_api}/alumno/?id=${idAlumno}`, { headers });
   }
 
   //Servicio para obtener la lista de maestros
@@ -165,7 +165,7 @@ export class AlumnosService {
       headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
     } else {
       headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-      console.log("No se encontró el token del usuario");
+      ("No se encontró el token del usuario");
     }
     return this.http.get<any>(`${environment.url_api}/alumno/?id=${idAlumno}`, { headers });
   }
@@ -178,7 +178,7 @@ export class AlumnosService {
       headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
     } else {
       headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-      console.log("No se encontró el token del usuario");
+      ("No se encontró el token del usuario");
     }
     return this.http.put<any>(`${environment.url_api}/alumno/`, data, { headers });
   }

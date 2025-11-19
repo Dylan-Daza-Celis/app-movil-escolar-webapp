@@ -129,7 +129,7 @@ export class RegistroAdminComponent implements OnInit {
       (response) => {
         // Redirigir o mostrar mensaje de éxito
         alert("Administrador actualizado exitosamente");
-        console.log("Administrador actualizado: ", response);
+        
         this.router.navigate(["administrador"]);
       },
       (error) => {

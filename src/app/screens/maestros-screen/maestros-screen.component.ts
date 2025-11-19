@@ -44,7 +44,6 @@ export class MaestrosScreenComponent implements OnInit {
     //Validar que haya inicio de sesión
     //Obtengo el token del login
     this.token = this.facadeService.getSessionToken();
-    console.log("Token: ", this.token);
     if(this.token == ""){
       this.router.navigate(["/"]);
     }
@@ -67,7 +66,6 @@ export class MaestrosScreenComponent implements OnInit {
     this.maestrosService.obtenerListaMaestros().subscribe(
       (response) => {
         this.lista_maestros = response;
-        console.log("Lista users: ", this.lista_maestros);
         if (this.lista_maestros.length > 0) {
           //Agregar datos del nombre e email
           this.lista_maestros.forEach(usuario => {
@@ -75,9 +73,11 @@ export class MaestrosScreenComponent implements OnInit {
             usuario.last_name = usuario.user.last_name;
             usuario.email = usuario.user.email;
           });
-          console.log("Maestros: ", this.lista_maestros);
 
-          this.dataSource = new MatTableDataSource<DatosUsuario>(this.lista_maestros as DatosUsuario[]);
+          this.dataSource.data = this.lista_maestros;
+
+
+        this.dataSource.paginator = this.paginator;
         }
       }, (error) => {
         console.error("Error al obtener la lista de maestros: ", error);
@@ -87,7 +87,14 @@ export class MaestrosScreenComponent implements OnInit {
   }
 
   public goEditar(idUser: number) {
-    this.router.navigate(["registro-usuarios/maestros/" + idUser]);
+
+     const userId = Number(this.facadeService.getUserId());
+    if (this.rol === 'administrador' || (this.rol === 'maestros' && userId === idUser)) {
+      this.router.navigate(["registro-usuarios/maestros/" + idUser]);
+    }else{
+      alert("No tienes permisos para actualizar este maestro.");
+    }
+
   }
 
   public ordenar(tipo: string) {
@@ -115,32 +122,32 @@ export class MaestrosScreenComponent implements OnInit {
       }
     });
   }
-  // Actualizar el dataSource después de ordenar
-  this.dataSource = new MatTableDataSource<DatosUsuario>(this.lista_maestros as DatosUsuario[]);
-
+    this.orden = !this.orden;
+    this.dataSource.data = [...this.lista_maestros];
+    this.dataSource.paginator = this.paginator;
   }
 
   public delete(idUser: number) {
     // Administrador puede eliminar cualquier maestro
     // Maestro solo puede eliminar su propio registro
     const userId = Number(this.facadeService.getUserId());
-    if (this.rol === 'administrador' || (this.rol === 'maestro' && userId === idUser)) {
+    if (this.rol === 'administrador' || (this.rol === 'maestros' && userId === idUser)) {
       //Si es administrador o es maestro, es decir, cumple la condición, se puede eliminar
       const dialogRef = this.dialog.open(EliminarUserModalComponent,{
-        data: {id: userId, rol: 'maestro'}, //Se pasan valores a través del componente
+        data: {id: idUser, rol: 'maestros'}, //Se pasan valores a través del componente
         height: '288px',
         width: '328px',
       });
 
     dialogRef.afterClosed().subscribe(result => {
       if(result.isDelete){
-        console.log("Maestro eliminado");
+        ("Maestro eliminado");
         alert("Maestro eliminado correctamente.");
         //Recargar página
         window.location.reload();
       }else{
         alert("Maestro no se ha podido eliminar.");
-        console.log("No se eliminó el maestro");
+        ("No se eliminó el maestro");
       }
     });
     }else{

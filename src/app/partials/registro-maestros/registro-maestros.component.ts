@@ -151,7 +151,6 @@ export class RegistroMaestrosComponent implements OnInit {
       (response) => {
         // Redirigir o mostrar mensaje de éxito
         alert("Maestro actualizado exitosamente");
-        console.log("Maestro actualizado: ", response);
         this.router.navigate(["maestros"]);
       },
       (error) => {
