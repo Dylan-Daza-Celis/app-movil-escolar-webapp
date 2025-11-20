@@ -8,6 +8,7 @@ import { HomeScreenComponent } from './screens/home-screen/home-screen.component
 import { AlumnosScreenComponent } from './screens/alumnos-screen/alumnos-screen.component';
 import { MaestrosScreenComponent } from './screens/maestros-screen/maestros-screen.component';
 import { AdminScreenComponent } from './screens/admin-screen/admin-screen.component';
+import { GraficasScreenComponent } from './screens/graficas-screen/graficas-screen.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'login', pathMatch: 'full' },
       { path: 'login', component: LoginScreenComponent },
       { path: 'registro-usuarios', component: RegistroUsuariosScreenComponent },
+      { path: 'registro-usuarios/:rol/:id', component: RegistroUsuariosScreenComponent },
     ]
   },
   {
@@ -24,12 +26,14 @@ const routes: Routes = [
     component: DashboardLayoutComponent,
     children: [
       { path: 'home', component: HomeScreenComponent },
-      { path: 'administrador', component: AdminScreenComponent},
-      { path: 'alumnos', component: AlumnosScreenComponent},
+      { path: 'administrador', component: AdminScreenComponent }, // Keep legacy route
+      { path: 'alumnos', component: AlumnosScreenComponent },
       { path: 'maestros', component: MaestrosScreenComponent },
-      { path: 'registro-usuarios/:rol/:id', component: RegistroUsuariosScreenComponent },
+      { path: 'graficas', component: GraficasScreenComponent }
     ]
-  }
+  },
+  // fallback route
+  { path: '**', redirectTo: 'login' }
 ];
 
 @NgModule({
