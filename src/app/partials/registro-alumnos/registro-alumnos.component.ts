@@ -30,6 +30,7 @@ export class RegistroAlumnosComponent implements OnInit {
 
   minDate: Date = new Date(this.ano-84, 0, 1);
   maxDate: Date = new Date(this.ano, 11, 31);
+  fechaPicker:Date = new Date();
 
   constructor(
     private router: Router,
@@ -147,9 +148,11 @@ export class RegistroAlumnosComponent implements OnInit {
   }
 
   //Función para detectar el cambio de fecha
-  public changeFecha(event :any){
+  public changeFecha(event: any) {
 
     this.alumno.fecha_nacimiento = event.value.toISOString().split("T")[0];
+    this.fechaPicker = event.value;
+    
   }
 
   public soloLetras(event: KeyboardEvent) {

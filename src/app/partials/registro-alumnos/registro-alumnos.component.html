@@ -53,7 +53,7 @@
       <mat-form-field class="mat-input" appearance="outline">
         <mat-label>Fecha de nacimiento</mat-label>
         <input matInput [matDatepicker]="picker"
-               [(ngModel)]="alumno.fecha_nacimiento"
+               [(ngModel)]="fechaPicker"
                [min]="minDate"
                [max]="maxDate"
                (focus)="picker.open()"

@@ -47,8 +47,8 @@ export class LoginScreenComponent implements OnInit {
     },
     (error: any) => {
       this.load = false;
-      alert("Error en el login: " + error.message);
       this.errors.general = "Credenciales invalidas. Por favor, intente nuevamente. " ;
+      alert("Error en el login: " + "Credenciales invalidas. Por favor, intente nuevamente.");
     });
   }
 

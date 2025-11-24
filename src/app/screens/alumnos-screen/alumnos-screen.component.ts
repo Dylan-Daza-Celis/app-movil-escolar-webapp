@@ -51,8 +51,6 @@ export class AlumnosScreenComponent implements OnInit {
 
     this.dataSource.filterPredicate = (dato, filtro) => {
       const texto = filtro.toLowerCase();
-
-      // Puedes ajustar los campos que quieres que entren en la búsqueda
       return (
         (dato.first_name).toLowerCase().includes(texto) ||
         (dato.last_name).toLowerCase().includes(texto)
@@ -93,7 +91,7 @@ export class AlumnosScreenComponent implements OnInit {
 
   public goEditar(idUser: number) {
     const userId = Number(this.facadeService.getUserId());
-    if (this.rol === 'administrador' || (this.rol === 'alumnos' && userId === idUser)) {
+    if (this.rol === 'administrador' || this.rol === 'maestros' || (this.rol === 'alumnos' && userId === idUser)) {
       this.router.navigate(["registro-usuarios/alumnos/" + idUser]);
     }else{
       alert("No tienes permisos para actualizar este alumno.");
@@ -126,7 +124,7 @@ export class AlumnosScreenComponent implements OnInit {
       });
     }
       this.orden = !this.orden;
-      
+
       this.dataSource.data = [...this.lista_alumnos];
       this.dataSource.paginator = this.paginator;
   }
