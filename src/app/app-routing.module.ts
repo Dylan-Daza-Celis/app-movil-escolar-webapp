@@ -10,6 +10,7 @@ import { MaestrosScreenComponent } from './screens/maestros-screen/maestros-scre
 import { AdminScreenComponent } from './screens/admin-screen/admin-screen.component';
 import { GraficasScreenComponent } from './screens/graficas-screen/graficas-screen.component';
 import { RegistroEventoScreenComponent } from './screens/registro-evento-screen/registro-evento-screen.component';
+import { EventoAcademicoComponent } from './screens/evento-academico/evento-academico.component';
 
 const routes: Routes = [
   {
@@ -31,8 +32,9 @@ const routes: Routes = [
       { path: 'alumnos', component: AlumnosScreenComponent },
       { path: 'maestros', component: MaestrosScreenComponent },
       { path: 'graficas', component: GraficasScreenComponent },
-      
       {path: 'registro-evento', component: RegistroEventoScreenComponent},
+      {path: 'registro-evento/:id', component: RegistroEventoScreenComponent},
+      {path: 'eventos-academicos', component: EventoAcademicoComponent},
     ]
   },
   // fallback route

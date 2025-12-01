@@ -8,6 +8,7 @@ import { Location } from '@angular/common';
 import { AdministradoresService } from 'src/app/services/administradores.service';
 import { EventoService } from 'src/app/services/evento.service';
 import { MaestrosService } from 'src/app/services/maestros.service';
+import { EliminarEditarEventoComponent } from '../../modals/eliminar-editar-evento/eliminar-editar-evento.component';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class RegistroEventoScreenComponent implements OnInit {
   public evento:any= {};
   public errors:any={};
   public editar:boolean = false;
-  public idEvento: Number = 0;
+  public idEvento: number = 0;
   public programaVisible: boolean = false;
   public ano = new Date().getFullYear() ;
   public mes = new Date().getMonth() ;
@@ -64,25 +65,21 @@ export class RegistroEventoScreenComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.name_user = this.facadeService.getUserCompleteName();
+    this.rol = this.facadeService.getUserGroup();
+    //Validar que haya inicio de sesión
+    //Obtengo el token del login
+    this.token = this.facadeService.getSessionToken();
+    if(this.token == ""){
+      this.router.navigate(["/"]);
+    }
 
      if(this.activatedRoute.snapshot.params['id'] != undefined){
-       this.editar = true;
-       this.idEvento = this.activatedRoute.snapshot.params['id'];
+        this.editar = true;
+        this.idEvento = this.activatedRoute.snapshot.params['id'];
+        this.obtenerEventoPorID();
+        console.log( this.evento);
 
-        try {
-         // Si el backend lo envía como string JSON, conviértelo a array
-         if (typeof this.evento.publico_objetivo === 'string') {
-           this.evento.publico_objetivo = JSON.parse(this.evento.publico_objetivo);
-         }
-
-         // Si no es array (por seguridad), inicializarlo vacío
-         if (!Array.isArray(this.evento.publico_objetivo)) {
-           this.evento.publico_objetivo = [];
-         }
-        } catch (error) {
-         console.warn('Error parseando publico_objetivo:', error);
-         this.evento.publico_objetivo = [];
-       }
      } else {
         this.evento = this.eventoService.esquemaEvento();
         this.token = this.facadeService.getSessionToken();
@@ -113,13 +110,6 @@ export class RegistroEventoScreenComponent implements OnInit {
     );
   }
 
-  public goEditar(idUser: number) {
-
-  }
-
-  public delete(idUser: number) {
-
-  }
 
   public regresar(){
     this.location.back();
@@ -139,7 +129,7 @@ export class RegistroEventoScreenComponent implements OnInit {
       next: (response: any) => {
         alert('Evento registrado con éxito');
         if(this.token && this.token !== ""){
-          this.router.navigate(["eventos"]);
+          this.router.navigate(["/eventos-academicos"]);
         } else {
           this.router.navigate(['/']);
         }
@@ -156,7 +146,32 @@ export class RegistroEventoScreenComponent implements OnInit {
   }
 
   public actualizar(){
+    this.errors = {};
 
+    // Asignar las materias seleccionadas al objeto maestro antes de validar
+    this.evento.publico_objetivo = [...this.evento.publico_objetivo];
+
+    this.errors = this.eventoService.validarEvento(this.evento, this.editar);
+
+    if(Object.keys(this.errors).length > 0){
+      return false;
+    }
+    const dialogRef = this.dialog.open(EliminarEditarEventoComponent,{
+      data: {id: -1, opcion: 'editar', evento: this.evento}, //Se pasan valores a través del componente
+      height: '288px',
+      width: '328px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result.isDelete){
+        ("Evento actualizado");
+        alert("Evento actualizado correctamente.");
+        //Recargar página
+        this.router.navigate(["/eventos-academicos"]);
+      }else{
+        alert("Evento  no se ha podido actualizar.");
+      }
+    });
   }
 
   //Función para detectar el cambio de fecha
@@ -257,14 +272,34 @@ export class RegistroEventoScreenComponent implements OnInit {
     return false;
   }
 
-  obtener(responsable: any){
-    console.log("Id del responsable" + responsable.id);
-    if(responsable.materias_json != undefined)
-    {
-      console.log("Rol del responsable: Maestros" );
-      return;
-    }
-    console.log("Rol del responsable: Administrador" );
-  }
+    public obtenerEventoPorID() {
+    //Lógica para obtener el usuario según su ID y rol
+    //Aquí se haría la llamada al servicio correspondiente según el rol
+      this.eventoService.obtenerEventoPorID(this.idEvento).subscribe(
+        (response) => {
+          console.log(response);
+          this.evento = response;
+          try {
+            // Si el backend lo envía como string JSON, conviértelo a array
+            if (typeof this.evento.publico_objetivo === 'string') {
+              this.evento.publico_objetivo = JSON.parse(this.evento.publico_objetivo);
+              //verificar si incluye Estudiantes para mostrar el programa educativo
+              if(this.evento.publico_objetivo.includes('Estudiantes')){
+                this.programaVisible = true;
+              }
+            }
 
+            // Si no es array (por seguridad), inicializarlo vacío
+            if (!Array.isArray(this.evento.publico_objetivo)) {
+              this.evento.publico_objetivo = [];
+            }
+           } catch (error) {
+            console.warn('Error parseando publico_objetivo:', error);
+            this.evento.publico_objetivo = [];
+          }
+        }, (error) => {
+          alert("No se pudo obtener el evento seleccionado");
+        }
+      );
+    }
 }

@@ -127,7 +127,6 @@ export class NavbarUserComponent implements OnInit {
 
   // Role helpers
   isAdmin(): boolean {
-
     return this.userRole === 'administrador';
   }
   isTeacher(): boolean {

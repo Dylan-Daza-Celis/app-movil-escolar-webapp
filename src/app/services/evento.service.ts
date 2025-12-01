@@ -99,6 +99,59 @@ export class EventoService {
     return this.http.post<any>(`${environment.url_api}/evento/`, data, { headers });
   }
 
+  // Petición para obtener un administrador por su ID
+  public obtenerEventoPorID(idEvento: number): Observable<any> {
+    const token = this.facadeService.getSessionToken();
+    let headers: HttpHeaders;
+    if (token) {
+      headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    } else {
+      headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+      ("No se encontró el token del usuario");
+    }
+    return this.http.get<any>(`${environment.url_api}/evento/?id=${idEvento}`, { headers });
+  }
+
+  //Servicio para obtener la lista de maestros
+  public obtenerListaEventos(): Observable<any>{
+    // Verificamos si existe el token de sesión
+    const token = this.facadeService.getSessionToken();
+    let headers: HttpHeaders;
+    if (token) {
+      headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    } else {
+      headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    }
+    return this.http.get<any>(`${environment.url_api}/lista-eventos/`, { headers });
+  }
+
+  //Eliminar alumno
+  public eliminarEvento(idEvento: number): Observable<any>{
+    // Verificamos si existe el token de sesión
+    const token = this.facadeService.getSessionToken();
+    let headers: HttpHeaders;
+    if (token) {
+      headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    } else {
+      headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    }
+    return this.http.delete<any>(`${environment.url_api}/evento/?id=${idEvento}`, { headers });
+  }
+
+   // Petición para actualizar un administrador
+  public actualizarEvento(data: any): Observable<any> {
+    const token = this.facadeService.getSessionToken();
+    let headers: HttpHeaders;
+    if (token) {
+      headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    } else {
+      headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+      ("No se encontró el token del usuario");
+    }
+    return this.http.put<any>(`${environment.url_api}/evento/`, data, { headers });
+  }
+
+
 
 }
 

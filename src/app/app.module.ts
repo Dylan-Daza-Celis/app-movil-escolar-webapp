@@ -52,6 +52,8 @@ import { SidebarComponent } from './partials/sidebar/sidebar.component';
 import { EliminarUserModalComponent } from './modals/eliminar-user-modal/eliminar-user-modal.component';
 import { GraficasScreenComponent } from './screens/graficas-screen/graficas-screen.component';
 import { RegistroEventoScreenComponent } from './screens/registro-evento-screen/registro-evento-screen.component';
+import { EventoAcademicoComponent } from './screens/evento-academico/evento-academico.component';
+import { EliminarEditarEventoComponent } from './modals/eliminar-editar-evento/eliminar-editar-evento.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +74,8 @@ import { RegistroEventoScreenComponent } from './screens/registro-evento-screen/
     EliminarUserModalComponent,
     GraficasScreenComponent,
     RegistroEventoScreenComponent,
+    EventoAcademicoComponent,
+    EliminarEditarEventoComponent,
 
   ],
   imports: [
