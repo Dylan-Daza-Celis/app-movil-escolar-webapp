@@ -178,7 +178,7 @@ export class AlumnosService {
       headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
     } else {
       headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-      ("No se encontró el token del usuario");
+
     }
     return this.http.put<any>(`${environment.url_api}/alumno/`, data, { headers });
   }

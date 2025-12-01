@@ -27,6 +27,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSelectModule} from '@angular/material/select';
 import {MatTableModule} from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 // Paginación
 import {MatPaginatorIntl, MatPaginatorModule} from '@angular/material/paginator';
@@ -50,6 +51,7 @@ import { NavbarUserComponent } from './partials/navbar-user/navbar-user.componen
 import { SidebarComponent } from './partials/sidebar/sidebar.component';
 import { EliminarUserModalComponent } from './modals/eliminar-user-modal/eliminar-user-modal.component';
 import { GraficasScreenComponent } from './screens/graficas-screen/graficas-screen.component';
+import { RegistroEventoScreenComponent } from './screens/registro-evento-screen/registro-evento-screen.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +70,9 @@ import { GraficasScreenComponent } from './screens/graficas-screen/graficas-scre
     NavbarUserComponent,
     SidebarComponent,
     EliminarUserModalComponent,
-    GraficasScreenComponent
+    GraficasScreenComponent,
+    RegistroEventoScreenComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -91,7 +95,8 @@ import { GraficasScreenComponent } from './screens/graficas-screen/graficas-scre
     MatPaginatorModule,
     MatSidenavModule,
     MatDialogModule,
-    NgChartsModule
+    NgChartsModule,
+    NgxMaterialTimepickerModule,
   ],
   providers: [
     CookieService,

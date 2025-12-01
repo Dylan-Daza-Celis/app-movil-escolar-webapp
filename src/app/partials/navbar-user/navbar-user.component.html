@@ -2,11 +2,33 @@
   <!-- Desktop sidebar -->
   <nav class="scoop-side-navbar" *ngIf="!isMobileView">
     <ul class="scoop-navbar-list">
-      <li *ngIf="canSeeRegisterItem()" routerLink="/registro-usuarios" routerLinkActive="active"
+      <!-- <li *ngIf="canSeeRegisterItem()" routerLink="/registro-usuarios" routerLinkActive="active"
         class="scoop-navbar-item">
         <span class="material-icons">person_add</span>
         <span>Registro</span>
-      </li>
+      </li> -->
+      <li *ngIf="canSeeRegisterItem()" class="scoop-navbar-item dropdown"  (click)="toggleDropdown()">
+          <span class="material-icons">expand_more</span>
+          <span>Registro</span>
+        </li>
+        <ul  class="dropdown-menu" [class.open]="isDropdownOpen" >
+          <li *ngIf="canSeeAdminItems()" routerLink="/registro-usuarios/administrador/-1" routerLinkActive="active" >
+            <span class="material-icons">admin_panel_settings</span>
+            <span>Administradores</span>
+          </li>
+          <li *ngIf="canSeeTeacherItems()" routerLink="/registro-usuarios/maestros/-1" routerLinkActive="active" >
+            <span class="material-icons">people</span>
+            <span>Maestros</span>
+          </li>
+          <li *ngIf="canSeeStudentItems()" routerLink="/registro-usuarios/alumnos/-1" routerLinkActive="active" >
+            <span class="material-icons">school</span>
+            <span>Alumnos</span>
+          </li>
+          <li routerLink="/registro-evento" routerLinkActive="active" (click)="toggleDropdown()">
+            <span class="material-icons">add_task</span>
+            <span>Evento</span>
+          </li>
+        </ul>
       <li *ngIf="canSeeAdminItems()" routerLink="/administrador" routerLinkActive="active" class="scoop-navbar-item">
         <span class="material-icons">admin_panel_settings</span>
         <span>Admins</span>
@@ -58,11 +80,39 @@
     <nav class="scoop-side-navbar" [ngClass]="{'mobile-open': mobileOpen}">
       <ul class="scoop-navbar-list">
 
-        <li *ngIf="canSeeRegisterItem()" routerLink="/registro-usuarios" routerLinkActive="active"
+        <!-- <li *ngIf="canSeeRegisterItem()" routerLink="/registro-usuarios" routerLinkActive="active"
           class="scoop-navbar-item" (click)="closeSidebar()">
           <span class="material-icons">person_add</span>
           <span>Registro</span>
+        </li> -->
+
+        <li *ngIf="canSeeRegisterItem()" class="scoop-navbar-item dropdown" (click)="toggleDropdown()" >
+          <span class="material-icons">expand_more</span>
+          <span>Registro</span>
         </li>
+        <ul  class="dropdown-menu" [class.open]="isDropdownOpen" >
+          <li *ngIf="canSeeAdminItems()" routerLink="/registro-usuarios/administrador/-1" routerLinkActive="active"
+            (click)="closeSidebar()">
+            <span class="material-icons">admin_panel_settings</span>
+            <span>Administradores</span>
+          </li>
+          <li *ngIf="canSeeTeacherItems()" routerLink="/registro-usuarios/maestros/-1" routerLinkActive="active"
+            (click)="closeSidebar()">
+            <span class="material-icons">people</span>
+            <span>Maestros</span>
+          </li>
+          <li *ngIf="canSeeStudentItems()" routerLink="/registro-usuarios/alumnos/-1" routerLinkActive="active"
+            (click)="closeSidebar()">
+            <span class="material-icons">school</span>
+            <span>Alumnos</span>
+          </li>
+          <li routerLink="/registro-evento" routerLinkActive="active" 
+            (click)="closeSidebar()">
+            <span class="material-icons">add_task</span>
+            <span>Evento</span>
+          </li>
+        </ul>
+
         <li *ngIf="canSeeAdminItems()" routerLink="/administrador" routerLinkActive="active" class="scoop-navbar-item"
           (click)="closeSidebar()">
           <span class="material-icons">admin_panel_settings</span>

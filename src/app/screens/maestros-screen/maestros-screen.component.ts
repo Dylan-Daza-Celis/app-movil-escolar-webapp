@@ -88,7 +88,8 @@ export class MaestrosScreenComponent implements OnInit {
 
   public goEditar(idUser: number) {
 
-     const userId = Number(this.facadeService.getUserId());
+    const userId = Number(this.facadeService.getUserId());
+
     if (this.rol === 'administrador' || (this.rol === 'maestros' && userId === idUser)) {
       this.router.navigate(["registro-usuarios/maestros/" + idUser]);
     }else{

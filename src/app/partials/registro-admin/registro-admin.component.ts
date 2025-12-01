@@ -36,7 +36,7 @@ export class RegistroAdminComponent implements OnInit {
 
   ngOnInit(): void {
     //El primer if valida si existe un parámetro en la URL
-    if(this.activatedRoute.snapshot.params['id'] != undefined){
+    if(this.activatedRoute.snapshot.params['id'] != undefined && this.activatedRoute.snapshot.params['id'] != -1){
       this.editar = true;
       //Asignamos a nuestra variable global el valor del ID que viene por la URL
       this.idUser = this.activatedRoute.snapshot.params['id'];
@@ -129,7 +129,7 @@ export class RegistroAdminComponent implements OnInit {
       (response) => {
         // Redirigir o mostrar mensaje de éxito
         alert("Administrador actualizado exitosamente");
-        
+
         this.router.navigate(["administrador"]);
       },
       (error) => {

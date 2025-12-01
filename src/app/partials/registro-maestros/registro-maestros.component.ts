@@ -61,7 +61,7 @@ export class RegistroMaestrosComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if(this.activatedRoute.snapshot.params['id'] != undefined){
+    if(this.activatedRoute.snapshot.params['id'] != undefined && this.activatedRoute.snapshot.params['id'] != -1){
       this.editar = true;
       this.idUser = this.activatedRoute.snapshot.params['id'];
       this.maestro = this.datos_user;
@@ -101,7 +101,7 @@ export class RegistroMaestrosComponent implements OnInit {
     this.maestro.materias_json = [...this.maestro.materias_json];
 
     this.errors = this.maestrosService.validarMaestro(this.maestro, this.editar);
-
+    console.log(this.errors);
     if(Object.keys(this.errors).length > 0){
       return false;
     }
@@ -188,7 +188,7 @@ export class RegistroMaestrosComponent implements OnInit {
     this.fechaPicker = event.value;
   }
 
-  // Función corregida para manejar los checkboxes
+
   public checkboxChange(event: any){
     const valor = event.source.value;
 

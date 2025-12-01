@@ -91,6 +91,8 @@ export class AlumnosScreenComponent implements OnInit {
 
   public goEditar(idUser: number) {
     const userId = Number(this.facadeService.getUserId());
+        console.log("Navegando a editar administrador con ID:", idUser, "UserIsd:", userId);
+
     if (this.rol === 'administrador' || this.rol === 'maestros' || (this.rol === 'alumnos' && userId === idUser)) {
       this.router.navigate(["registro-usuarios/alumnos/" + idUser]);
     }else{
@@ -133,7 +135,7 @@ export class AlumnosScreenComponent implements OnInit {
     // Administrador puede eliminar cualquier maestro
     // Maestro solo puede eliminar su propio registro
     const userId = Number(this.facadeService.getUserId());
-    if (this.rol === 'administrador' || (this.rol === 'alumnos' && userId === idUser)) {
+    if (this.rol === 'administrador' || this.rol === 'maestros' ||(this.rol === 'alumnos' && userId === idUser)) {
       //Si es administrador o es maestro, es decir, cumple la condición, se puede eliminar
       const dialogRef = this.dialog.open(EliminarUserModalComponent,{
         data: {id: idUser, rol: 'alumnos'}, //Se pasan valores a través del componente

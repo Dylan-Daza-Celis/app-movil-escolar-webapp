@@ -24,6 +24,7 @@ export class RegistroUsuariosScreenComponent implements OnInit {
   public isAlumno:boolean = false;
   public isMaestro:boolean = false;
 
+
   public tipo_user:string = "";
 
   //JSON para el usuario
@@ -41,17 +42,37 @@ export class RegistroUsuariosScreenComponent implements OnInit {
 
   ngOnInit(): void {
     //Revisar si se está editando o creando un usuario
-    if(this.activatedRoute.snapshot.params['rol'] != undefined){
+    if(this.activatedRoute.snapshot.params['rol'] != undefined && this.activatedRoute.snapshot.params['id'] != -1){
       this.rol = this.activatedRoute.snapshot.params['rol'];
+
     }
 
     //El if valida si existe un parámetro en la URL
-    if(this.activatedRoute.snapshot.params['id'] != undefined){
+    if(this.activatedRoute.snapshot.params['id'] != undefined && this.activatedRoute.snapshot.params['id'] != -1){
       this.editar = true;
+
       //Asignamos a nuestra variable global el valor del ID que viene por la URL
       this.idUser = this.activatedRoute.snapshot.params['id'];
       //Al iniciar la vista obtiene el usuario por su ID
       this.obtenerUserByID();
+    }
+
+    //El if valida si existe un parámetro en la URL
+    if(this.activatedRoute.snapshot.params['rol'] != undefined && this.activatedRoute.snapshot.params['id'] == -1){
+
+      this.rol = this.activatedRoute.snapshot.params['rol'];
+      this.user.tipo_usuario = this.rol;
+      //Asignar las banderas según el rol
+      if(this.rol === "administrador"){
+        this.tipo_user = "administrador";
+        this.isAdmin = true;
+      }else if(this.rol === "maestros"){
+        this.tipo_user = "maestros";
+        this.isMaestro = true;
+      }else if(this.rol === "alumnos"){
+        this.tipo_user = "alumnos";
+        this.isAlumno = true;
+      }
     }
   }
 

@@ -378,3 +378,30 @@
   font-size: 1.08rem;
   padding: 1rem 1.2rem;
 }
+
+
+.dropdown {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-menu {
+    display: none;
+  padding-left: 20px;
+  flex-direction: column;
+}
+
+.dropdown-menu.open {
+
+  display: flex;
+}
+
+.dropdown-menu li {
+
+
+  padding: 8px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}

@@ -86,6 +86,7 @@ export class NavbarUserComponent implements OnInit {
   }
 
   closeSidebar() {
+    this.isDropdownOpen = false;
     this.mobileOpen = false;
   }
 
@@ -126,6 +127,7 @@ export class NavbarUserComponent implements OnInit {
 
   // Role helpers
   isAdmin(): boolean {
+
     return this.userRole === 'administrador';
   }
   isTeacher(): boolean {
@@ -149,5 +151,14 @@ export class NavbarUserComponent implements OnInit {
   canSeeRegisterItem(): boolean {
     return this.isAdmin() || this.isTeacher();
   }
+
+
+
+  isDropdownOpen = false;
+
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
 
 }

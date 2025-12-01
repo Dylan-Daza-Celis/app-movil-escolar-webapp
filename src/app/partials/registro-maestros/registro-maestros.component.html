@@ -52,10 +52,10 @@
         <mat-label>Fecha de nacimiento</mat-label>
         <input matInput [matDatepicker]="picker"
                [(ngModel)]="fechaPicker"
-               (focus)="picker.open()"
                [min]="minDate"
                [max]="maxDate"
-               placeholder="Agregar fecha"
+               (focus)="picker.open()"
+               placeholder="Selecciona la fecha de nacimiento"
                (dateChange)="changeFecha($event)"
                type="string">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>

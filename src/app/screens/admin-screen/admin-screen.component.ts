@@ -52,19 +52,14 @@ export class AdminScreenComponent implements OnInit {
   }
 
   public goEditar(idUser: number) {
-    const userId = Number(this.facadeService.getUserId());
-    if (this.rol === 'administrador' && userId === idUser) {
-      this.router.navigate(["registro-usuarios/administrador/"+idUser]);
-      }else{
-      alert("No tienes permisos para actualizar este administrador.");
-    }
+    this.router.navigate(["registro-usuarios/administrador/"+idUser]);
   }
 
   public delete(idUser: number) {
     // Administrador puede eliminar cualquier maestro
         // Maestro solo puede eliminar su propio registro
         const userId = Number(this.facadeService.getUserId());
-        if (this.rol === 'administrador' && userId === idUser) {
+        if (this.rol === 'administrador') {
           //Si es administrador se puede eliminar
           const dialogRef = this.dialog.open(EliminarUserModalComponent,{
             data: {id: idUser, rol: 'administrador'}, //Se pasan valores a través del componente
