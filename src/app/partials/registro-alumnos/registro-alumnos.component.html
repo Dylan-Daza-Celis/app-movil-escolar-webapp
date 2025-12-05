@@ -78,7 +78,7 @@
 
       <mat-form-field class="mat-input mat-hint-margin" appearance="outline">
         <mat-label>CURP</mat-label>
-        <input matInput minlength="18" maxlength="18" [(ngModel)]="alumno.curp" placeholder="Escribe CURP"
+        <input matInput  [(ngModel)]="alumno.curp" minlength="18" maxlength="18" placeholder="Escribe CURP"
           style="text-transform: uppercase;" (input)="validarSoloLetras('curp', $event)">
         <mat-hint align="end">{{alumno.curp?.length || 0}}/18</mat-hint>
       </mat-form-field>

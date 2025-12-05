@@ -151,8 +151,6 @@ export class EventoService {
     return this.http.put<any>(`${environment.url_api}/evento/`, data, { headers });
   }
 
-
-
 }
 
 
