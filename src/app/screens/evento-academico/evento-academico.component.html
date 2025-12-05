@@ -22,7 +22,7 @@
         <ng-container *ngIf="lista_eventos.length > 0; else noData">
           <mat-form-field appearance="outline" style="min-width: 40px; width: 100%;">
             <mat-label>Buscar evento</mat-label>
-              <input #search matInput (input)="filtrar(search.value)" placeholder="Nombre, apellido...">
+              <input #search matInput (input)="filtrar(search.value)" placeholder="Nombre...">
             <mat-icon matSuffix>search</mat-icon>
           </mat-form-field>
         </ng-container>

@@ -117,9 +117,13 @@ export class EventoAcademicoComponent implements OnInit {
           console.log("Eventos filtrados para maestro:", this.lista_eventos);
         }
         if(this.canSeeStudentItems()){
-          this.lista_eventos = [...this.lista_eventos, ...response.filter(evento => evento.publico_objetivo.includes("Estudiantes") || evento.publico_objetivo.includes("Publico general"))];
+          this.lista_eventos = [...this.lista_eventos, ...response.filter(evento => evento.publico_objetivo.includes("Estudiantes") || evento.publico_objetivo.includes("Publico general") )];
           console.log("Eventos filtrados para estudiante:", this.lista_eventos);
         }
+
+        this.lista_eventos = Array.from(
+          new Map(this.lista_eventos.map(e => [e.id, e])).values()
+        );
 
         if (this.lista_eventos.length > 0) {
           this.dataSource.data = this.lista_eventos;
