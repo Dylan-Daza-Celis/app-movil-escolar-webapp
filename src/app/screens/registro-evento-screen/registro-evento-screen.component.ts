@@ -43,7 +43,7 @@ export class RegistroEventoScreenComponent implements OnInit {
   public participantes: any[] = [
     {value: '1', nombre: 'Estudiantes'},
     {value: '2', nombre: 'Profesores'},
-    {value: '3', nombre: 'Público general'},
+    {value: '3', nombre: 'Publico general'},
   ];
 
   public programas: any[] = [
