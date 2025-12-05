@@ -31,7 +31,8 @@ export class RegistroEventoScreenComponent implements OnInit {
   public mes = new Date().getMonth() ;
   public dia = new Date().getDate() ;
   public minDate: Date = new Date(this.ano,this.mes, this.dia);
-  public fechaPicker:Date = new Date();
+  public fechaPicker;
+  public horaMinimaFin: string = '08:00';
 
   public tipos: any[] = [
     {value: '1', viewValue: 'Conferencia'},
@@ -265,34 +266,44 @@ export class RegistroEventoScreenComponent implements OnInit {
     return false;
   }
 
-    public obtenerEventoPorID() {
-    //Lógica para obtener el usuario según su ID y rol
-    //Aquí se haría la llamada al servicio correspondiente según el rol
-      this.eventoService.obtenerEventoPorID(this.idEvento).subscribe(
-        (response) => {
-          console.log(response);
-          this.evento = response;
-          try {
-            // Si el backend lo envía como string JSON, conviértelo a array
-            if (typeof this.evento.publico_objetivo === 'string') {
-              this.evento.publico_objetivo = JSON.parse(this.evento.publico_objetivo);
-              //verificar si incluye Estudiantes para mostrar el programa educativo
-              if(this.evento.publico_objetivo.includes('Estudiantes')){
-                this.programaVisible = true;
-              }
+  public obtenerEventoPorID() {
+  //Lógica para obtener el usuario según su ID y rol
+  //Aquí se haría la llamada al servicio correspondiente según el rol
+    this.eventoService.obtenerEventoPorID(this.idEvento).subscribe(
+      (response) => {
+        console.log(response);
+        this.evento = response;
+        try {
+          // Si el backend lo envía como string JSON, conviértelo a array
+          if (typeof this.evento.publico_objetivo === 'string') {
+            this.evento.publico_objetivo = JSON.parse(this.evento.publico_objetivo);
+            //verificar si incluye Estudiantes para mostrar el programa educativo
+            if(this.evento.publico_objetivo.includes('Estudiantes')){
+              this.programaVisible = true;
             }
+          }
 
-            // Si no es array (por seguridad), inicializarlo vacío
-            if (!Array.isArray(this.evento.publico_objetivo)) {
-              this.evento.publico_objetivo = [];
-            }
-           } catch (error) {
-            console.warn('Error parseando publico_objetivo:', error);
+          // Si no es array (por seguridad), inicializarlo vacío
+          if (!Array.isArray(this.evento.publico_objetivo)) {
             this.evento.publico_objetivo = [];
           }
-        }, (error) => {
-          alert("No se pudo obtener el evento seleccionado");
+         } catch (error) {
+          console.warn('Error parseando publico_objetivo:', error);
+          this.evento.publico_objetivo = [];
         }
-      );
+      }, (error) => {
+        alert("No se pudo obtener el evento seleccionado");
+      }
+    );
+  }
+
+  actualizarMinimaFin(horaInicio: string) {
+    if (horaInicio) {
+      this.horaMinimaFin = horaInicio;
+
+      if (this.evento.hora_fin && this.evento.hora_fin <= horaInicio) {
+          this.evento.hora_fin = '';
+      }
     }
+  }
 }

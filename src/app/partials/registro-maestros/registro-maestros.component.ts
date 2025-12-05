@@ -29,7 +29,7 @@ export class RegistroMaestrosComponent implements OnInit {
 
   minDate: Date = new Date(this.ano-84, 0, 1);
   maxDate: Date = new Date(this.ano, 11, 31);
-  fechaPicker:Date = new Date();
+  fechaPicker;
 
   public areas: any[] = [
     {value: '1', viewValue: 'Desarrollo Web'},
