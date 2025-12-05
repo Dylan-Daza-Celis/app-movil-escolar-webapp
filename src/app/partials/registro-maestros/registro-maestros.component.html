@@ -9,19 +9,19 @@
 
       <mat-form-field class="mat-input" appearance="outline">
         <mat-label>ID de trabajador</mat-label>
-        <input matInput [(ngModel)]="maestro.clave_maestro" mask="000000000" name="id" placeholder="Escribe ID de trabajador">
+        <input matInput [(ngModel)]="maestro.clave_maestro" minlength="9" maxlength="9" (input)="validarSoloNumeros('clave_maestro', $event)" name="id" placeholder="Escribe ID de trabajador">
       </mat-form-field>
       <div *ngIf="errors.clave_maestro" class="invalid-feedback">{{ errors.clave_maestro }}</div>
 
       <mat-form-field class="mat-input" appearance="outline">
           <mat-label>Nombre</mat-label>
-          <input matInput [(ngModel)]="maestro.first_name" placeholder="Escribe nombre" (keypress)="soloLetras($event)">
+          <input matInput [(ngModel)]="maestro.first_name" placeholder="Escribe nombre" (input)="validarSoloLetras('first_name', $event)">
       </mat-form-field>
       <div *ngIf="errors.first_name" class="invalid-feedback">{{ errors.first_name }}</div>
 
       <mat-form-field class="mat-input" appearance="outline">
           <mat-label>Apellidos</mat-label>
-          <input matInput [(ngModel)]="maestro.last_name" placeholder="Escribe apellidos" (keypress)="soloLetras($event)">
+          <input matInput [(ngModel)]="maestro.last_name" placeholder="Escribe apellidos" (input)="validarSoloLetras('last_name', $event)">
       </mat-form-field>
       <div *ngIf="errors.last_name" class="invalid-feedback">{{ errors.last_name }}</div>
 
@@ -65,20 +65,20 @@
 
       <mat-form-field class="mat-input" appearance="outline">
         <mat-label>Teléfono</mat-label>
-        <input matInput [(ngModel)]="maestro.telefono" mask='(000) 000-0000' placeholder="Escribe teléfono">
+        <input matInput [(ngModel)]="maestro.telefono" mask='(000) 000-0000' minlength="10" maxlength="10" (input)="validarSoloNumeros('telefono', $event)"placeholder="Escribe teléfono">
       </mat-form-field>
       <div *ngIf="errors.telefono" class="invalid-feedback">{{ errors.telefono }}</div>
 
       <mat-form-field class="mat-input mat-hint-margin" appearance="outline">
           <mat-label>RFC</mat-label>
-          <input matInput minlength="12" maxlength="13" [(ngModel)]="maestro.rfc" (keypress)="soloLetrasNumeros($event)" placeholder="Escribe RFC" style="text-transform: uppercase;">
+          <input matInput minlength="12" maxlength="13" [(ngModel)]="maestro.rfc" (input)="validarLetrasYNumeros('rfc', $event)" placeholder="Escribe RFC" style="text-transform: uppercase;">
           <mat-hint align="end">{{maestro.rfc?.length || 0}}/13</mat-hint>
       </mat-form-field>
       <div *ngIf="errors.rfc" class="invalid-feedback">{{ errors.rfc }}</div>
 
       <mat-form-field class="mat-input" appearance="outline">
         <mat-label>Cubículo</mat-label>
-        <input matInput [(ngModel)]="maestro.cubiculo" placeholder="Escribe el cubículo" (keypress)="soloLetrasNumeros($event)">
+        <input matInput [(ngModel)]="maestro.cubiculo" placeholder="Escribe el cubículo" (input)="validarLetrasYNumeros('cubiculo', $event)">
       </mat-form-field>
       <div *ngIf="errors.cubiculo" class="invalid-feedback">{{ errors.cubiculo }}</div>
 

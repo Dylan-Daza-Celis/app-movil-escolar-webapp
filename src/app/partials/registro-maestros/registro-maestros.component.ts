@@ -218,28 +218,44 @@ export class RegistroMaestrosComponent implements OnInit {
     return false;
   }
 
-  public soloLetras(event: KeyboardEvent) {
-    const charCode = event.key.charCodeAt(0);
-    if (
-      !(charCode >= 65 && charCode <= 90) &&
-      !(charCode >= 97 && charCode <= 122) &&
-      charCode !== 32
-    ) {
-      event.preventDefault();
+  public validarSoloLetras(campo: string, event: any) {
+    const regexLetras = /[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g;
+    const input = event.target;
+    const valorOriginal = input.value;
+    const valorLimpio = valorOriginal.replace(regexLetras, '');
+
+    if (valorOriginal !== valorLimpio) {
+      this.maestro[campo] = valorLimpio;
+      input.value = valorLimpio;
     }
   }
 
-  // Función para los campos solo de datos alfabeticos
-  public soloLetrasNumeros(event: KeyboardEvent) {
-    const charCode = event.key.charCodeAt(0);
-    // Permitir solo letras (mayúsculas y minúsculas) y espacio
-    if (
-      !(charCode >= 65 && charCode <= 90) &&  // Letras mayúsculas
-      !(charCode >= 97 && charCode <= 122) && // Letras minúsculas
-      !(charCode >= 48 && charCode <= 57) && // Números
-      charCode !== 32                         // Espacio
-    ) {
-      event.preventDefault();
-    }
+  public validarSoloNumeros(campo: string, event: any) {
+      const regexNumeros = /[^0-9]/g;
+      const input = event.target;
+      const valorOriginal = input.value;
+
+      const valorLimpio = valorOriginal.replace(regexNumeros, '');
+
+      if (valorOriginal !== valorLimpio) {
+          this.maestro[campo] = valorLimpio;
+          input.value = valorLimpio;
+      }
   }
+
+  public validarLetrasYNumeros(campo: string, event: any) {
+      const regexLetrasNumeros = /[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]/g;
+      const input = event.target;
+      const valorOriginal = input.value;
+
+      const valorLimpio = valorOriginal.replace(regexLetrasNumeros, '');
+
+      if (valorOriginal !== valorLimpio) {
+          this.maestro[campo] = valorLimpio;
+          input.value = valorLimpio;
+      }
+  }
+
+
+
 }

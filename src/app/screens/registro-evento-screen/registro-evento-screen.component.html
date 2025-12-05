@@ -25,13 +25,13 @@
         <!-- Aquí empiezan los campos del formulario -->
         <mat-form-field class="mat-input" appearance="outline">
           <mat-label>Nombre</mat-label>
-          <input matInput [(ngModel)]="evento.nombre" placeholder="Escribe nombre" (keypress)="soloLetras($event)">
+          <input matInput (input)="validarSoloLetras('nombre', $event)" [(ngModel)]="evento.nombre" placeholder="Escribe nombre" >
         </mat-form-field>
         <div *ngIf="errors.nombre" class="invalid-feedback">{{ errors.nombre }}</div>
 
         <mat-form-field class="mat-input" appearance="outline">
           <mat-label>Número de Participantes</mat-label>
-          <input matInput [(ngModel)]="evento.numero_participantes" maxlength="3" name="numero_participantes" placeholder="Escribe el número de participantes" (keypress)="soloNumeros($event)">
+          <input matInput [(ngModel)]="evento.numero_participantes" maxlength="3" name="numero_participantes" placeholder="Escribe el número de participantes" (input)="validarSoloNumeros('numero_participantes', $event)">
         </mat-form-field>
         <div *ngIf="errors.numero_participantes" class="invalid-feedback">{{ errors.numero_participantes }}</div>
 
@@ -95,7 +95,7 @@
 
         <mat-form-field class="mat-input" appearance="outline">
           <mat-label>Lugar del Evento</mat-label>
-          <input matInput [(ngModel)]="evento.lugar" placeholder="Escribe el lugar del evento" (keypress)="soloLetrasNumeros($event)">
+          <input matInput [(ngModel)]="evento.lugar" placeholder="Escribe el lugar del evento" (keypress)="validarLetrasYNumeros('lugar', $event)">
         </mat-form-field>
         <div *ngIf="errors.lugar" class="invalid-feedback">{{ errors.lugar }}</div>
 
@@ -118,7 +118,7 @@
           [(ngModel)]="evento.descripcion"
           placeholder="Escribe la descripción del evento"
           maxlength="300"
-          (keypress)="puntuacion($event)">
+          (input)="validarPuntuacion('descripcion', $event)">
         </textarea>
         <mat-hint align="end">{{evento.descripcion?.length || 0}}/300</mat-hint>
       </mat-form-field>
